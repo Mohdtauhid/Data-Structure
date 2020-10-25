@@ -14,6 +14,7 @@ class node
 		LL()
 		{
 			first=NULL;
+			 
 		}
 		int rev();
 		int index(int a);
@@ -23,6 +24,8 @@ class node
 		void del(int index);
 		int merge(LL A,LL B);
 		void display();
+		int Middle_Node();
+		int Middle_EVEN_ODD_Node();
 };
 
 		int LL::index(int a)
@@ -80,8 +83,8 @@ void LL::insert(int a,int index)
 		{
 			prev=prev->next;
 		}
-		cur->next=prev->next;
 		prev->next=cur;
+	    cur->next=NULL;
 	}
 }
 void LL::del(int index)
@@ -136,6 +139,35 @@ while(cur->next!=NULL)
 }
 cur->next=C.first;
 }
+///////////////////////////////////////
+int LL::Middle_Node()
+{ node *slow=first;
+ node *fast=first;
+if(slow == NULL)
+return 0;
+while(fast->next->next!=NULL && fast->next!=NULL )
+  {	
+    fast = fast -> next -> next;
+    slow = slow -> next;
+  }
+cout<<"\n\nMiddle Node = "<<slow->A;
+}
+
+int LL::Middle_EVEN_ODD_Node()
+{ node *temp=first;
+ if(temp == NULL)
+return 0;
+int count=0;
+while(temp!=NULL )
+  {	
+    temp=temp-> next;
+    ++count;
+  }
+cout<<"\n\nEVEN Middle Node = "<<count/2;
+
+cout<<"\n\nODD Middle Node = "<<(count/2) +1;
+
+}
 int LL::rev()
 {
 	node*cur,*p1,*p2,*p3;
@@ -172,7 +204,7 @@ int main()
 //cout<<l.isEmpty()<<endl;
 //cout<<l.getsize()<<endl;
 	l.display();
-	
+	l.Middle_Node();
 	m.insert(222,0);
 	m.insert(333,1);
 	m.insert(444,2);
@@ -188,5 +220,7 @@ l.merge(l,m);
 l.display();
 l.rev();
 l.display();
+	l.Middle_Node();
+	l.Middle_EVEN_ODD_Node();	
 	return 0;
 }

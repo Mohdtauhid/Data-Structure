@@ -1,5 +1,5 @@
 #include<iostream>
-#include<conio.h>
+#include<queue>
 #include<math.h>
 using namespace std; 
 class Node
@@ -8,7 +8,6 @@ public:
 char data;
 Node *left,*right;		
 };
-
 class BTREE
 {
 public:
@@ -19,6 +18,7 @@ Node *root;
 		root=NULL;
 		
 		}
+/////////////////////////////////////////////////////
 int height(Node *temp)
 {
 if(temp==NULL)
@@ -28,7 +28,7 @@ return height(temp->left)+1;
 else 
 return height(temp->right)+1;
 }
-
+/////////////////////////////////////////////////////
 int build(Node *cur,Node *P)	
 {	char A,B;
 if(cur==NULL)
@@ -76,24 +76,36 @@ else
 cur->right=NULL;
 }
 }
-int level_order(Node *cur)
+/////////////////////////////////////////////////////
+int level_order(Node *root)
 { 
-int h=height(cur);   // 3
-for(int i=1;i<=h;i++)
-printlevel(cur,i);
+ if(root == NULL)  
+  return -1; 
+    
+    queue< Node * > Q;              //create empty Queue
+    
+    Q.push(root);                   //enqueue root
+    
+    while(Q.empty() == false)
+    {
+        // Print front of queue and remove it from queue
+        
+        Node* node = Q.front();
+        cout<< node->data << " ";
+        Q.pop();
+        
+        //enqueue Left child
+        
+        if(node->left != NULL)
+            Q.push(node->left);
+        
+        //enqueue right child
+        
+        if(node->right != NULL)
+            Q.push(node->right);
+    }
 }
-void printlevel(Node *cur,int level)
-{
-	if(cur==NULL)
-	return ;
-	if(level==1)
-	cout<<" "<<cur->data;
-	else 
-	{
-	printlevel(cur->left,level-1);
-	printlevel(cur->right,level-1);
-}
-}
+/////////////////////////////////////////////////////
 int Delete(char key,Node *T)
 {
 	Node *temp=search(key,T);
@@ -105,6 +117,7 @@ int Delete(char key,Node *T)
 	 delete temp;
 
 }
+/////////////////////////////////////////////////////
 Node *search(char key,Node *cur)
 {static  Node *temp;
 	if(cur==NULL)
@@ -121,6 +134,7 @@ Node *search(char key,Node *cur)
 	search(key,cur->right);
 return temp;
 }
+/////////////////////////////////////////////////////
 int insert(char key ,char item ,Node *T)
 { char A; 
  Node *temp=search(key,T);
@@ -170,6 +184,7 @@ temp->left=NULL;
 temp->right=NULL;
 }
 }
+/////////////////////////////////////////////////////
 int in_order(Node *cur)
 { 
 if(cur->left!=NULL)
@@ -179,6 +194,7 @@ cout<<" "<<cur->data;
 if(cur->right!=NULL)
 in_order(cur->right);
 }
+/////////////////////////////////////////////////////
 int pre_order(Node *cur)
 { 
 if(cur!=NULL)
@@ -188,6 +204,7 @@ pre_order(cur->left);
 if(cur->right!=NULL)
 pre_order(cur->right);
 }
+/////////////////////////////////////////////////////
 int post_order(Node *cur)
 { 
 if(cur->left!=NULL)
@@ -196,8 +213,8 @@ if(cur->right!=NULL)
 post_order(cur->right);
 if(cur!=NULL)
 cout<<" "<<cur->data;
-
 }
+/////////////////////////////////////////////////////
 };
 int main()
 {

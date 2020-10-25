@@ -112,18 +112,17 @@ first=del->next;
 			temp=temp->next;
 		}
 		del=temp->next;
+		temp->next=del->next;
+		
 		if(del->next==NULL)
 		{
-		del->prev->next=del->next;
-		del->prev=NULL;
+		  del->prev=NULL;
 		}
-		
 		else
 		{
-		
-		del->prev->next=del->next;
-		del->next->prev=del->prev;
-	}
+		del->prev=NULL;
+		del->next->prev=temp;
+	   }
 }
 		delete del;
 
@@ -190,7 +189,7 @@ int main()
 	l.display();
 	
 	l.del(0);
-	
+	l.display();
 	l.del(2);
 	l.display();
 	l.del(5);

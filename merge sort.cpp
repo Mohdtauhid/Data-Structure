@@ -2,7 +2,8 @@
 #include<conio.h>
 using namespace std;		 
 int merge_sort(int *a,int low,int mid,int high)
-{ int i=low,j=mid+1,k=low;int c [20];
+{ int i=low,j=mid+1,k=0;
+int c[high -low + 1 ];     //  size
 while(i<=mid and j<=high)
 {
 	if(a[i]<=a[j])
@@ -27,7 +28,7 @@ while(j<=high)
 	}
 	
 for(int i=low;i<=high;i++)
-a[i]=c[i];	
+a[i]=c[i-low];	
 }
 int merge(int *arr, int low, int high) 
 { 
@@ -44,10 +45,10 @@ int main()
 {
 
 int a[]={1,13,5,17,9,3,2,4};
-
-merge(a,0,7);
+int size=sizeof(a)/sizeof(a[0]);
+merge(a,0,size-1);
 	cout<<"\nAFTER SORTING";
-	for(int i=0;i<10;i++)
+	for(int i=0;i<size;i++)
 	cout<<" "<<a[i];
 
 }

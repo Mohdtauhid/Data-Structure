@@ -29,12 +29,7 @@ void quickSort(int arr[], int low, int high)
         quickSort(arr, pi + 1, high); 
     } 
 }
-int swap(int &a,int &b)
-{
-	int c = a;
-	a = b; 
-	b = c;
- }  
+
 void printArray(int arr[], int size) 
 { 
     int i; 
@@ -44,7 +39,7 @@ void printArray(int arr[], int size)
 } 
 int main() 
 { 
-    int arr[] = {10, 7, 8, 9, 1, 5}; 
+    int arr[] = {10, 7, 8, 9, 1, 5,6,3}; 
     int n = sizeof(arr)/sizeof(arr[0]); 
     quickSort(arr, 0, n-1); 
     printf("Sorted array: \n"); 

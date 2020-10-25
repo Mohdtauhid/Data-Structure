@@ -1,5 +1,5 @@
 #include<iostream>
-#include<conio.h>
+#include<queue>
 #include<math.h>
 using namespace std; 
 class Node
@@ -19,6 +19,7 @@ Node *root;
 		{	
 		root=NULL;
 		}
+/////////////////////////////////////////////////////
 int height(Node *temp)
 {
 if(temp==NULL)
@@ -28,31 +29,41 @@ return height(temp->left)+1;
 else 
 return height(temp->right)+1;
 }
+/////////////////////////////////////////////////////
 int getroot(Node *cur)
 {
 	cout<<"\nROOT OF TREE = "<<cur->data;
 }
-int level_order(Node *cur)
+/////////////////////////////////////////////////////
+int level_order(Node *root)
 { 
-int h=height(cur);   // 3
-for(int i=1;i<=h;i++)
-printlevel(cur,i);
+ if(root == NULL)  
+  return -1; 
+    
+    queue< Node * > Q;              //create empty Queue
+    
+    Q.push(root);                   //enqueue root
+    
+    while(Q.empty() == false)
+    {
+        // Print front of queue and remove it from queue
+        
+        Node* node = Q.front();
+        cout<< node->data << " ";
+        Q.pop();
+        
+        //enqueue Left child
+        
+        if(node->left != NULL)
+            Q.push(node->left);
+        
+        //enqueue right child
+        
+        if(node->right != NULL)
+            Q.push(node->right);
+    }
 }
-void printlevel(Node *cur,int level)
-{
-	if(cur==NULL)
-	return ;
-	if(level==1)
-	{
-		cout<<" "<<cur->data;
-//cout<<"=== "<<cur->freq<<endl;
-}
-	else 
-	{
-	printlevel(cur->left,level-1);
-	printlevel(cur->right,level-1);
-}
-}
+/////////////////////////////////////////////////////
 Node *deleteNode(Node *root,int key)
 {  
     if (root == NULL) 
@@ -91,7 +102,8 @@ Node * temp = minValueNode(root->right);
         root->right = deleteNode(root->right, temp->data); 
     } 
     return root; 
-} 
+}
+///////////////////////////////////////////////////// 
 Node *minValueNode(Node *temp) 
 { 
 Node *current = temp; 
@@ -101,6 +113,7 @@ Node *current = temp;
         current = current->left; 
     return current; 
 }
+/////////////////////////////////////////////////////
 Node *search(int key,Node *cur)
 {static  Node *temp;
 	if(cur==NULL)
@@ -125,6 +138,7 @@ if(cur->data<key)
 }
 return temp;
 }
+/////////////////////////////////////////////////////
 Node *insert(Node *temp,int item )
 {  if (temp == NULL) 
 	{
@@ -144,7 +158,8 @@ else if(item==temp->data)
 	(temp->freq)++;
 }
 	return temp; 
-} 
+}
+///////////////////////////////////////////////////// 
 int in_order(Node *cur)
 { 
 if(cur->left!=NULL)
@@ -154,6 +169,7 @@ cout<<" "<<cur->data;
 if(cur->right!=NULL)
 in_order(cur->right);
 }
+/////////////////////////////////////////////////////
 int pre_order(Node *cur)
 { 
 if(cur!=NULL)
@@ -163,6 +179,7 @@ pre_order(cur->left);
 if(cur->right!=NULL)
 pre_order(cur->right);
 }
+/////////////////////////////////////////////////////
 int post_order(Node *cur)
 { 
 if(cur->left!=NULL)
@@ -173,6 +190,7 @@ if(cur!=NULL)
 cout<<" "<<cur->data;
 
 }
+/////////////////////////////////////////////////////
 };
 int main()
 {

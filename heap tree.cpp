@@ -1,90 +1,110 @@
-#include<iostream>
-#include<conio.h>
-#include<math.h>
+#include <iostream> 
 using namespace std; 
-class HEAP_TREE
-{
-public:
-int insert(int *a,int n)
+void heapify(int arr[], int n, int i) 
 { 
-cout<<"\nENTER  VALUE  TO BE INSERT";
-cin>>a[n+1];
-build(a,n+1);
-}
-int Delete(int *a,int n)
-{
-if(n==0)
-cout<<"\n\nEmpty tree";	
-int x=a[1];
-a[1]=a[n-1];
-adjust(a,1,n-1);
-return x;
-}
-int build(int *a,int n)
-{  
-for(int i=(n)/2;i>=1;i--)
-adjust(a,i,n);
-}
-int heap_sort(int *a,int n)
-{    build(a,n); int i;
-	for(i=n-1;i>=1;i--)
-	{
-		int t=a[i];
-		a[i]=a[1];
-		a[1]=t;
-	adjust(a,1,i-1);
-	}
+	int largest = i; // Initialize largest as root 
+	int l = 2 * (i+1) - 1;        // Index of its left child 
+	int r = 2 * (i + 1);             // Index of its right child 
+	
+	// If left child is larger than root 
+	if (l < n && arr[l] > arr[largest]) 
+		largest = l; 
 
-}
-int adjust(int *a,int i,int n)
+	// If right child is larger than largest so far 
+	if (r < n && arr[r] > arr[largest]) 
+		largest = r; 
+
+	// If largest is not root 
+	if (largest != i) { 
+		swap(arr[i], arr[largest]); 
+
+		// Recursively heapify the affected sub-tree 
+		heapify(arr, n, largest); 
+	} 
+} 
+
+// Function to build a Max-Heap from the given array 
+void buildHeap(int arr[], int n)                // -----   O(N)
+{ 
+	// Index of last non-leaf node 
+	int startIdx = (n / 2) - 1; 
+
+	// Perform reverse level order traversal  from last non-leaf node and heapify each node 
+	for (int i = startIdx; i >= 0; i--) 
+	{ 
+		heapify(arr, n, i); 
+	} 
+
+// ------ Note: there is no Deletion OR  Swaping --- Root Node  one by one....
+           // There is No sorting Method here........
+              //----------------------//
+               //----------------------//
+                //----------------------//
+                 //----------------------//
+
+} 
+//////////////////////////////////////////////////////////////////
+void Delete(int arr[],int &n,int D )
 {
-int j=2*i;
-int y=a[i];
-while(j<=n)
+	for(int i=0;i<n;i++)
+	{
+if(D==arr[i])	
 {
-if(j<n and a[j+1]>a[j])
-j=j+1;
-if(y>a[j])
+arr[i]=arr[n-1];
+n=n-1;         // array size reduce
+buildHeap(arr,  n);     
 break;
-else if(y<=a[j])
-{
-a[j/2]=a[j];
-j=2*j;	
 }
 }
-a[j/2]=y;
 }
 
-void display(int *a,int n)
-{cout<<endl;
-  	
-if(n==0)
-	{
-		cout<<"\nHeap is empty\n";
-		return;
-	}
-	for(int i=1;i<=n;i++)
-	cout<<" "<<a[i];
+void Insert(int arr[],int &n,int I )
+{ 
+arr[n]=I;
+n=n+1; // array size increase 
+buildHeap(arr, n);   
 }
-};
-int main()
-{ int a[20],n,x;
-cout<<"\n\nEnter no of element";
-cin>>n;
-for(int i=1;i<=n;i++)
-{   
-cout<<"\nEnter element =="<<i<<endl;
- cin>>a[i];
- 
-}
-HEAP_TREE obj;
-obj.build(a,n);
-obj.display(a,n);
-obj.insert(a,n);
-obj.display(a,n+1);
-obj.insert(a,n+1);
-obj.display(a,n+2);
-obj.heap_sort(a,n+2);
-obj.display(a,n+5);
-}
+
+/////////////////////////////////////////////////////////////////////////////////////
+void printHeap(int arr[], int n) 
+{ 
+	cout << "Array representation of Heap is:\n"; 
+
+	for (int i = 0; i < n; ++i) 
+		cout << arr[i] << " "; 
+	cout << "\n"; 
+} 
+
+// Driver Code 
+int main() 
+{ 
+	// Binary Tree Representation 
+	// of input array 
+	//         1 
+	//		 /	 \ 
+	//     3	  5 
+	//	 / \	 / \ 
+	// 4	 6 13 10 
+	// / \ / \ 
+	// 9 8 15 17 
+	int arr[] = { 1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17 }; 
+
+	int n = sizeof(arr) / sizeof(arr[0]); 
+	buildHeap(arr, n); 
+	printHeap(arr, n);
+Delete(arr,n,13 );           ///---------
+printHeap(arr, n); 
+    Insert(arr,n,22);       ///-----------
+	printHeap(arr, n); 
+	// Final Heap: 
+	//        17 
+	//		 /	 \ 
+	//    15	 13 
+	//	 / \	 / \ 
+//      9	 6  5  10 
+//    / \ / \ 
+//   4  8 3 1 
+
+	return 0; 
+} 
 

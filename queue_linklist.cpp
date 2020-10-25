@@ -70,9 +70,13 @@ void QQ::insert(char a)
 		{
  		front=cur;
 		rear=cur;
-	}
+    
+    	}
+    	else
+    	{
 		rear->next=cur;
 		rear=cur;
+         }
 }
 char QQ::del()
 { 
@@ -102,13 +106,8 @@ void QQ::display()
 	cout<<endl;
 }
 int QQ::merge(QQ B,QQ C)
-{node *cur;
-cur=B.front;
-while(cur->next!=NULL)
-{
-	cur=cur->next;
-}
-cur->next=C.front;
+{ 
+B.rear->next=C.front;
 }
 int QQ::rev()
 {
